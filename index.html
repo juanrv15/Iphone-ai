@@ -1,1 +1,88 @@
+Juan, cole este código inteiro no arquivo index.html:
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meu Assistente IA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101114;
+      color: white;
+      padding: 24px;
+      line-height: 1.6;
+    }
+    h1 { color: #8ab4ff; }
+    button, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      margin-top: 12px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+    button {
+      background: #8ab4ff;
+      color: #101114;
+      border: none;
+      font-weight: bold;
+    }
+    textarea {
+      background: #22242a;
+      color: white;
+      border: 1px solid #555;
+    }
+    #status { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Meu Assistente IA</h1>
+  <p>Uma base acessível para seu assistente pessoal.</p>
+  <label for="comando">O que você precisa?</label>
+  <textarea id="comando" rows="3"
+    placeholder="Digite ou dite seu comando aqui"></textarea>
+  <button id="falar">Falar meu comando</button>
+  <button id="executar">Enviar comando</button>
+  <p id="status" role="status" aria-live="polite">
+    Assistente pronto.
+  </p>
+  <script>
+    const comando = document.getElementById("comando");
+    const status = document.getElementById("status");
+    document.getElementById("falar").onclick = () => {
+      const Reconhecimento =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+      if (!Reconhecimento) {
+        status.textContent =
+          "Reconhecimento de voz indisponível neste navegador.";
+        return;
+      }
+      const reconhecimento = new Reconhecimento();
+      reconhecimento.lang = "pt-BR";
+      reconhecimento.onresult = (evento) => {
+        comando.value = evento.results[0][0].transcript;
+        status.textContent = "Comando reconhecido.";
+      };
+      reconhecimento.onerror = () => {
+        status.textContent = "Não foi possível reconhecer a voz.";
+      };
+      reconhecimento.start();
+    };
+    document.getElementById("executar").onclick = () => {
+      status.textContent =
+        "Comando recebido: " + comando.value +
+        ". A integração com o iPhone ainda precisa ser implementada.";
+    };
+  </script>
+</body>
+</html>
+
+Depois:
+
+1. Toque em Commit changes.
+2. Confirme novamente para salvar.
+
+Esse código cria a interface inicial com entrada de voz e texto. A conexão com o ChatGPT e a execução de ações no iPhone serão etapas posteriores.
